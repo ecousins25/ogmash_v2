@@ -61,6 +61,12 @@ export const PlaylistCard: FC<PlaylistCardProps> = ({
     </div>
   ), []);
 
+  const isHighlighted = useMemo(() => {
+    return (item: PlaylistItem, index: number) => {
+      return index === currentIndex;
+    };
+  }, [currentIndex]);
+
   const handleSongSelect = useCallback(async (index: number) => {
     try {
       await onSongSelect(index);
@@ -93,13 +99,6 @@ export const PlaylistCard: FC<PlaylistCardProps> = ({
   if (items.length === 0) {
     return memoizedEmptyState;
   }
-
-  // Memoize the isHighlighted function
-  const isHighlighted = useMemo(() => {
-    return (item: PlaylistItem, index: number) => {
-      return index === currentIndex;
-    };
-  }, [currentIndex]);
 
   return (
     <div className="bg-gray-800 rounded-lg p-2 sm:p-4">

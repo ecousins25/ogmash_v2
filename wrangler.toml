@@ -10,9 +10,3 @@ compatibility_date = "2023-12-01"
 binding = "ogmash_BUCKET"
 bucket_name = "ogmash"
 
-[build]
-command = "npm run build"
-output_dir = "out"
-
-[site]
-bucket = "./out"

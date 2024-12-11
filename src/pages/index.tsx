@@ -49,7 +49,10 @@ export default function Home() {
 
       {/* Mission Statement Section */}
       <div className="w-11/12 md:w-4/5 mx-auto text-left py-4 md:py-8">
-        <p className="text-lg md:text-2xl" style={{ color: siteConfig.colors.text.primary }}>
+        <p style={{ 
+          color: siteConfig.colors.text.primary,
+          fontSize: isMobile ? siteConfig.typography.fontSize.lg : siteConfig.typography.fontSize["2xl"]
+        }}>
           OGMASH is an American &quot;YURU-CHARA&quot; musical act that consists of a solo drummer that plays to and DJs songs written by the performer. All songs performed are original copy written works of musical art. The lyrical content tends to be that of inner self reflection, but sometimes the songs are just for fun. Some are serious subjects and some are not.<br/><br/> 
           OG is the performer in Digital form. He only exists in a digital video jukebox.<br/><br/>
           He is the last of his model and soon to be replaced by upgraded models. OG is first of a long line of American &quot;YURU CHARA&quot; who&apos;s sole purpose is raise funds and awareness for a Rottweiler Canine Rescue called &quot;ChascaPark&quot; TM. ChascaPark&apos;s goal is to be a national foundation dedicated to the health and betterment of the Rottweiler breed while offering dedicated canine assistance to American Military Veterans.<br/><br/>

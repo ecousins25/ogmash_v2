@@ -193,7 +193,13 @@ const Jukebox: FC = () => {
     playback: {
       currentTime: number;
     };
-  }>();
+  }>({
+    mode: 'normal',
+    currentSong: undefined,
+    playback: {
+      currentTime: 0
+    }
+  });
 
   // Store callbacks in refs to prevent recreation
   const callbacksRef = useRef<AudioCallbacks>({

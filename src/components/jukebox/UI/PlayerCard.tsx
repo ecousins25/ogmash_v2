@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef, useState, useCallback, useMemo } from 'react';
+import React, { FC, useEffect, useRef, useState, useCallback, useMemo } from 'react';
 import { AudioData } from '../audio-data/types';
 import { PlaybackStats, PlaylistItem, PlaylistState, PlaybackMode } from '../playlist/types';
 import { AudioDataManager } from '../audio-data';
@@ -41,7 +41,7 @@ const formatTime = (seconds: number): string => {
 
 interface ButtonContent {
   onClick: () => void;
-  icon: JSX.Element;
+  icon: React.ReactElement;
   text: string;
   baseColor: string;
 }
@@ -71,7 +71,16 @@ export const PlayerCard: FC<PlayerCardProps> = ({
       hasPlayback: boolean;
       currentTime: number;
     };
-  }>();
+  }>({
+    mode: 'normal',
+    isPlaying: false,
+    currentSong: null,
+    audioState: {
+      hasData: false,
+      hasPlayback: false,
+      currentTime: 0
+    }
+  });
   const lastLogTimeRef = useRef(0);
   const LOG_INTERVAL = 2000; // 2 seconds
   const PREVIEW_DURATION = 10000; // 10 seconds for preview mode

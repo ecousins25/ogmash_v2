@@ -76,75 +76,73 @@ export const JukeboxUI: FC<JukeboxUIProps> = ({
       <div className="hidden sm:flex justify-center mt-[5vh] mb-[5vh]">
         <h1 className="text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-500 [text-shadow:3px_3px_0_#2563eb,6px_6px_0_#1e40af] tracking-wider uppercase">OGMASH Jukebox</h1>
       </div>
-      <div className="fixed inset-0 w-screen h-screen bg-gray-900 sm:static sm:container sm:mx-auto sm:p-8">
-        <div className="bg-gray-900 rounded-xl p-4 sm:p-6 shadow-2xl h-full sm:h-auto overflow-y-auto">
-          <div className="mb-4 sm:mb-6">
-            <PlayerCard
-              audioData={audioData}
-              audioDataManager={audioDataManager}
-              playlistState={playlistState}
-              playbackStats={playbackStats}
-              currentSong={currentSong}
-              isBuffering={isBuffering}
-              bufferProgress={bufferProgress}
-              onPlay={onPlay}
-              onPause={onPause}
-              onPlayPlaylist={onPlayPlaylist}
-              onPlayModeChange={onPlayModeChange}
+      <div className="bg-gray-900 rounded-xl p-4 sm:p-6 shadow-2xl h-screen sm:h-auto overflow-y-auto w-full">
+        <div className="mb-4 sm:mb-6">
+          <PlayerCard
+            audioData={audioData}
+            audioDataManager={audioDataManager}
+            playlistState={playlistState}
+            playbackStats={playbackStats}
+            currentSong={currentSong}
+            isBuffering={isBuffering}
+            bufferProgress={bufferProgress}
+            onPlay={onPlay}
+            onPause={onPause}
+            onPlayPlaylist={onPlayPlaylist}
+            onPlayModeChange={onPlayModeChange}
+          />
+        </div>
+
+        <div className="space-y-2">
+          <div className="flex gap-2 border-b border-gray-700">
+            <TabButton
+              label="Builder"
+              isActive={activeTab === 'builder'}
+              onClick={() => setActiveTab('builder')}
+            />
+            <TabButton
+              label="Playlist"
+              isActive={activeTab === 'playlist'}
+              onClick={() => setActiveTab('playlist')}
+            />
+            <TabButton
+              label="Audio Data"
+              isActive={activeTab === 'audioData'}
+              onClick={() => setActiveTab('audioData')}
             />
           </div>
 
-          <div className="space-y-2">
-            <div className="flex gap-2 border-b border-gray-700">
-              <TabButton
-                label="Builder"
-                isActive={activeTab === 'builder'}
-                onClick={() => setActiveTab('builder')}
-              />
-              <TabButton
-                label="Playlist"
-                isActive={activeTab === 'playlist'}
-                onClick={() => setActiveTab('playlist')}
-              />
-              <TabButton
-                label="Audio Data"
-                isActive={activeTab === 'audioData'}
-                onClick={() => setActiveTab('audioData')}
-              />
-            </div>
+          <div className="bg-gray-800 rounded-lg">
+            <BuilderCard
+              builderState={builderState}
+              onSelectionChange={onSelectionChange}
+              onSongSelect={onSongSelect}
+              onSongLoad={onSongLoad}
+              currentSong={currentSong}
+              onStepChange={onStepChange}
+              onResetSelection={onResetSelection}
+              isVisible={activeTab === 'builder'}
+              playlistItems={playlistState.items}
+              onRemoveFromSelection={onRemoveFromSelection}
+              onTabChange={setActiveTab}
+            />
 
-            <div className="bg-gray-800 rounded-lg">
-              <BuilderCard
-                builderState={builderState}
-                onSelectionChange={onSelectionChange}
-                onSongSelect={onSongSelect}
-                onSongLoad={onSongLoad}
-                currentSong={currentSong}
-                onStepChange={onStepChange}
-                onResetSelection={onResetSelection}
-                isVisible={activeTab === 'builder'}
-                playlistItems={playlistState.items}
-                onRemoveFromSelection={onRemoveFromSelection}
-                onTabChange={setActiveTab}
+            <AudioDataCard
+              audioData={audioData}
+              isVisible={activeTab === 'audioData'}
+            />
+            
+            {activeTab === 'playlist' && (
+              <PlaylistCard
+                items={playlistState.items}
+                currentIndex={playlistState.currentIndex}
+                isPlaying={playlistState.isPlaying}
+                mode={playlistState.mode}
+                currentSong={currentSong?.songName}
+                onRemove={onRemoveSong}
+                onSongSelect={handlePlaylistIndexSelect}
               />
-
-              <AudioDataCard
-                audioData={audioData}
-                isVisible={activeTab === 'audioData'}
-              />
-              
-              {activeTab === 'playlist' && (
-                <PlaylistCard
-                  items={playlistState.items}
-                  currentIndex={playlistState.currentIndex}
-                  isPlaying={playlistState.isPlaying}
-                  mode={playlistState.mode}
-                  currentSong={currentSong?.songName}
-                  onRemove={onRemoveSong}
-                  onSongSelect={handlePlaylistIndexSelect}
-                />
-              )}
-            </div>
+            )}
           </div>
         </div>
       </div>

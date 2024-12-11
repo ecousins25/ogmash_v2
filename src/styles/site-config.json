@@ -28,8 +28,8 @@
   },
   "headerBanner": {
     "desktop": {
-      "height": "20rem",
-      "transform": "translateY(-2%)"
+      "height": "24rem",
+      "transform": "translateY(-5%)"
     },
     "mobile": {
       "height": "10rem",

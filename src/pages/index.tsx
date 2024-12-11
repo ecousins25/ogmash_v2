@@ -1,115 +1,73 @@
 import Image from "next/image";
 import localFont from "next/font/local";
+import siteConfig from "../styles/site-config.json";
+import { useState, useEffect } from "react";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
   weight: "100 900",
 });
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
 
 export default function Home() {
-  return (
-    <div
-      className={`${geistSans.variable} ${geistMono.variable} grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]`}
-    >
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/pages/index.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [isMobile, setIsMobile] = useState(true);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  return (
+    <div 
+      className={`${geistSans.variable} min-h-screen flex flex-col items-center`}
+      style={{ backgroundColor: siteConfig.colors.background.main }}
+    >
+      {/* Header Banner Section */}
+      <div 
+        className="w-full overflow-hidden relative"
+        style={{ 
+          height: isMobile ? siteConfig.headerBanner.mobile.height : siteConfig.headerBanner.desktop.height
+        }}
+      >
+        <Image 
+          src="/assets/header-banner.jpg" 
+          alt="Header Banner" 
+          className="object-cover"
+          fill
+          priority
+          sizes="100vw"
+          style={{ 
+            transform: isMobile ? siteConfig.headerBanner.mobile.transform : siteConfig.headerBanner.desktop.transform
+          }}
+        />
+      </div>
+
+      {/* Mission Statement Section */}
+      <div className="w-11/12 md:w-4/5 mx-auto text-left py-4 md:py-8">
+        <p className="text-lg md:text-2xl" style={{ color: siteConfig.colors.text.primary }}>
+          OGMASH is an American &quot;YURU-CHARA&quot; musical act that consists of a solo drummer that plays to and DJs songs written by the performer. All songs performed are original copy written works of musical art. The lyrical content tends to be that of inner self reflection, but sometimes the songs are just for fun. Some are serious subjects and some are not.<br/><br/> 
+          OG is the performer in Digital form. He only exists in a digital video jukebox.<br/><br/>
+          He is the last of his model and soon to be replaced by upgraded models. OG is first of a long line of American &quot;YURU CHARA&quot; who&apos;s sole purpose is raise funds and awareness for a Rottweiler Canine Rescue called &quot;ChascaPark&quot; TM. ChascaPark&apos;s goal is to be a national foundation dedicated to the health and betterment of the Rottweiler breed while offering dedicated canine assistance to American Military Veterans.<br/><br/>
+          All funds generated by OG and OGMASH go to the ChascaPark Rottweiler Rescue.
+        </p>
+      </div>
+
+      {/* Showtimes Section */}
+      <div className="w-11/12 md:w-4/5 mx-auto relative py-4 md:py-8">
+        <Image 
+          src="/assets/SHOWTIMES.png" 
+          alt="Showtimes" 
+          className="w-full"
+          width={700}
+          height={475}
+          style={{ height: 'auto' }}
+        />
+      </div>
     </div>
   );
 }

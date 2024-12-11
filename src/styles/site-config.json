@@ -1,0 +1,60 @@
+{
+  "colors": {
+    "primary": "#FF6B6B",
+    "secondary": "#4ECDC4",
+    "accent": "#45B7D1",
+    "background": {
+      "main": "#87CEEB",
+      "secondary": "#A7D8F3"
+    },
+    "text": {
+      "primary": "#000000",
+      "secondary": "#333333"
+    }
+  },
+  "spacing": {
+    "container": {
+      "padding": {
+        "desktop": "2rem",
+        "mobile": "1rem"
+      },
+      "maxWidth": "1200px"
+    },
+    "gap": {
+      "small": "0.5rem",
+      "medium": "1rem",
+      "large": "2rem"
+    }
+  },
+  "headerBanner": {
+    "desktop": {
+      "height": "20rem",
+      "transform": "translateY(-2%)"
+    },
+    "mobile": {
+      "height": "10rem",
+      "transform": "translateY(-2%)"
+    }
+  },
+  "typography": {
+    "fontFamily": {
+      "heading": "Inter, sans-serif",
+      "body": "Inter, sans-serif"
+    },
+    "fontSize": {
+      "xs": "0.75rem",
+      "sm": "0.875rem",
+      "base": "1rem",
+      "lg": "1.125rem",
+      "xl": "1.25rem",
+      "2xl": "1.5rem",
+      "3xl": "1.875rem"
+    }
+  },
+  "borderRadius": {
+    "small": "0.25rem",
+    "medium": "0.5rem",
+    "large": "1rem",
+    "full": "9999px"
+  }
+} 

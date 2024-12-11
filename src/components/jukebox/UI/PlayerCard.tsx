@@ -563,7 +563,7 @@ export const PlayerCard: FC<PlayerCardProps> = ({
             console.log('🔀 Mode dropdown changed:', e.target.value);
             handleModeChange(e.target.value as PlaybackMode);
           }}
-          className="absolute opacity-0 inset-0 w-full h-full cursor-pointer"
+          className="absolute opacity-0 inset-0 w-full h-full cursor-pointer text-black"
         >
           <option value="normal">Play In Order</option>
           <option value="shuffle">Play Shuffled</option>

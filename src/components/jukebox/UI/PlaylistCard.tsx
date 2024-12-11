@@ -16,14 +16,12 @@ const logError = (error: any, context: string) => {
     message: error.message,
     name: error.name,
     code: error.code,
-    // Additional audio-specific error details
     type: error instanceof Error ? error.constructor.name : 'Unknown',
     details: error.details || 'No additional details'
   });
 };
 
-// Add throttled logging with longer interval for preview mode
-const LOG_THROTTLE = 1000; // Increased to 1s to reduce log frequency
+const LOG_THROTTLE = 1000;
 let lastLogTime = 0;
 
 const throttledLog = (message: string, data?: any) => {
@@ -57,50 +55,51 @@ export const PlaylistCard: FC<PlaylistCardProps> = ({
   onRemove,
   onSongSelect,
 }) => {
+  const memoizedEmptyState = useMemo(() => (
+    <div className="text-center p-4 text-gray-400">
+      <p>Your playlist is empty. Add some songs to get started!</p>
+    </div>
+  ), []);
+
+  const handleSongSelect = useCallback(async (index: number) => {
+    try {
+      await onSongSelect(index);
+    } catch (error: unknown) {
+      const err = error as Error;
+      switch (err.name) {
+        case PLAYBACK_ERRORS.ABORTED:
+          logError(err, 'Playback aborted by user');
+          break;
+        case PLAYBACK_ERRORS.NETWORK:
+          logError(err, 'Network error during playback');
+          break;
+        case PLAYBACK_ERRORS.DECODE:
+          logError(err, 'Audio decode error');
+          break;
+        case PLAYBACK_ERRORS.SRC_NOT_SUPPORTED:
+          logError(err, 'Audio source not supported');
+          break;
+        default:
+          logError(err, 'Unexpected playback error');
+      }
+    }
+  }, [onSongSelect]);
+
   if (!Array.isArray(items)) {
     console.warn('PlaylistCard: items prop is not an array', items);
     return null;
   }
 
+  if (items.length === 0) {
+    return memoizedEmptyState;
+  }
+
   // Memoize the isHighlighted function
   const isHighlighted = useMemo(() => {
     return (item: PlaylistItem, index: number) => {
-      // Use index matching for all modes since playlist manager handles the proper index
       return index === currentIndex;
     };
   }, [currentIndex]);
-
-  // Only log on significant state changes
-  const renderState = useMemo(() => {
-    const state = { mode, currentSong, currentIndex };
-    throttledLog('🎵 PlaylistCard state:', state);
-    return state;
-  }, [mode, currentSong, currentIndex]);
-
-  // Enhanced song selection handler with error tracking
-  const handleSongSelect = useCallback(async (index: number) => {
-    try {
-      await onSongSelect(index);
-    } catch (error: any) {
-      // Handle specific audio playback errors
-      switch (error.name) {
-        case PLAYBACK_ERRORS.ABORTED:
-          logError(error, 'Playback aborted by user');
-          break;
-        case PLAYBACK_ERRORS.NETWORK:
-          logError(error, 'Network error during playback');
-          break;
-        case PLAYBACK_ERRORS.DECODE:
-          logError(error, 'Audio decode error');
-          break;
-        case PLAYBACK_ERRORS.SRC_NOT_SUPPORTED:
-          logError(error, 'Audio source not supported');
-          break;
-        default:
-          logError(error, 'Unexpected playback error');
-      }
-    }
-  }, [onSongSelect]);
 
   return (
     <div className="bg-gray-800 rounded-lg p-2 sm:p-4">

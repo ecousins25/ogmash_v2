@@ -145,7 +145,7 @@ export const BuilderCard: FC<BuilderCardProps> = ({
         return (
           <div className="text-white text-center p-8 space-y-4">
             <h2 className="text-2xl font-bold">Welcome to the Jukebox!</h2>
-            <p className="text-gray-400">Let's help you build your perfect playlist.</p>
+            <p className="text-gray-400">Let&apos;s help you build your perfect playlist.</p>
             <button
               onClick={() => onStepChange('songs')}
               className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition-colors"

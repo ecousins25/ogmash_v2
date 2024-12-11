@@ -28,12 +28,12 @@
   },
   "headerBanner": {
     "desktop": {
-      "height": "24rem",
+      "height": "50vh",
       "transform": "translateY(-5%)"
     },
     "mobile": {
-      "height": "10rem",
-      "transform": "translateY(-2%)"
+      "height": "18vh",
+      "transform": "translateY(0%)"
     }
   },
   "typography": {

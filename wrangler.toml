@@ -1,0 +1,11 @@
+name = "ogmash"
+account_id = "a6533d1b483e8ab51c031e0c7c27ba9a"
+workers_dev = true
+
+main = "_worker.js"
+
+compatibility_date = "2024-11-06"
+
+[[r2_buckets]]
+binding = "ogmash_BUCKET"
+bucket_name = "ogmash"
